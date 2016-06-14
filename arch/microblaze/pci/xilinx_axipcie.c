@@ -195,6 +195,9 @@ static int xilinx_init_axipcie_port(struct xilinx_axipcie_port *port)
 		port->header_remap = base_addr_remap;
 		out_le32((((u8 *)port->base_addr_remap) + PCIE_CFG_CMD),
 							BUS_MASTER_ENABLE);
+
+		// Completion Timeout Value : 65 ms to 210 ms
+		out_le16(((u8 *)port->base_addr_remap) + PCIE_CFG_DEV_CTRL2, 0x6);
 	}
 
 #ifdef CONFIG_PCI_MSI
